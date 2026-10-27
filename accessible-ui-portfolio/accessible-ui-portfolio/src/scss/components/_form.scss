@@ -1,0 +1,237 @@
+@use "../mixins" as m;
+
+.field {
+  margin-bottom: m.space(5);
+
+  &--error {
+    padding-left: m.space(4);
+    border-left: 5px solid var(--color-error);
+  }
+}
+
+.label,
+.legend {
+  display: block;
+  margin-bottom: m.space(1);
+  font-weight: 700;
+}
+
+.legend {
+  padding: 0;
+  font-size: var(--fs-md);
+
+  &--lg { font-size: var(--fs-lg); }
+}
+
+fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+
+.hint {
+  display: block;
+  margin-bottom: m.space(2);
+  color: var(--color-text-muted);
+}
+
+.error-message {
+  display: block;
+  margin-bottom: m.space(2);
+  color: var(--color-error);
+  font-weight: 700;
+}
+
+.input,
+.select {
+  display: block;
+  width: 100%;
+  max-width: 28rem;
+  min-height: 44px;
+  padding: m.space(2) m.space(3);
+  border: 2px solid var(--color-text);
+  border-radius: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font: inherit;
+
+  &[aria-invalid="true"] {
+    border-color: var(--color-error);
+    border-width: 3px;
+  }
+
+  // Width helpers communicate expected input length (good UX + COGA guidance).
+  &--w2 { max-width: 5.5ch; box-sizing: content-box; }
+  &--w4 { max-width: 7.5ch; box-sizing: content-box; }
+  &--w10 { max-width: 16rem; }
+}
+
+.date-input {
+  display: flex;
+  flex-wrap: wrap;
+  gap: m.space(4);
+
+  .label { font-weight: 400; }
+}
+
+// Custom radios/checkboxes that keep the native input (and its semantics)
+// and only restyle it. Large 32px targets.
+.choices {
+  display: flex;
+  flex-direction: column;
+  gap: m.space(3);
+
+  &--inline {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: m.space(5);
+  }
+}
+
+.choice {
+  display: flex;
+  align-items: flex-start;
+  gap: m.space(3);
+
+  input {
+    flex: none;
+    width: 32px;
+    height: 32px;
+    margin: 0;
+    accent-color: var(--color-primary);
+    cursor: pointer;
+  }
+
+  label {
+    padding-top: 0.2rem;
+    cursor: pointer;
+  }
+}
+
+// Error summary (pattern from GOV.UK / USWDS): receives focus on submit so
+// screen reader users immediately hear what went wrong (WCAG 3.3.1, 3.3.3).
+.error-summary {
+  padding: m.space(5);
+  margin-bottom: m.space(6);
+  border: 5px solid var(--color-error);
+  max-width: var(--measure);
+
+  &__title {
+    margin-top: 0;
+    font-size: var(--fs-lg);
+  }
+
+  &__list {
+    margin-bottom: 0;
+    padding-left: m.space(5);
+
+    a {
+      color: var(--color-error);
+      font-weight: 700;
+    }
+  }
+}
+
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: m.space(3);
+  margin-top: m.space(6);
+}
+
+// Step indicator ------------------------------------------------------------
+.step-indicator {
+  display: flex;
+  flex-wrap: wrap;
+  gap: m.space(2);
+  padding: 0;
+  margin-bottom: m.space(6);
+  list-style: none;
+  counter-reset: step;
+  max-width: none;
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: m.space(2);
+    padding: m.space(2) m.space(3);
+    border-bottom: 4px solid var(--color-border);
+    color: var(--color-text-muted);
+    font-size: var(--fs-sm);
+
+    &.is-complete {
+      border-bottom-color: var(--color-success);
+      color: var(--color-text);
+    }
+
+    &[aria-current="step"] {
+      border-bottom-color: var(--color-primary);
+      color: var(--color-text);
+      font-weight: 700;
+    }
+  }
+
+  &__num {
+    display: inline-grid;
+    place-items: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    border: 2px solid currentColor;
+    border-radius: 50%;
+    font-size: var(--fs-xs);
+    font-weight: 700;
+
+    .is-complete & {
+      background: var(--color-success);
+      border-color: var(--color-success);
+      color: var(--color-bg);
+    }
+  }
+}
+
+.caption {
+  display: block;
+  margin-bottom: m.space(1);
+  color: var(--color-text-muted);
+  font-size: var(--fs-md);
+  font-weight: 400;
+}
+
+// Review answers ------------------------------------------------------------
+.summary-list {
+  margin: 0 0 m.space(6);
+  max-width: 48rem;
+  border-top: 1px solid var(--color-border);
+
+  &__row {
+    display: grid;
+    gap: m.space(1) m.space(4);
+    padding-block: m.space(3);
+    border-bottom: 1px solid var(--color-border);
+
+    @include m.mq(md) {
+      grid-template-columns: 14rem 1fr auto;
+      align-items: baseline;
+    }
+  }
+
+  dt { font-weight: 700; }
+  dd { margin: 0; overflow-wrap: anywhere; }
+}
+
+.confirmation {
+  padding: m.space(6);
+  border: 5px solid var(--color-success);
+  background: var(--color-success-bg);
+  max-width: var(--measure);
+  margin-bottom: m.space(6);
+
+  h2 { margin-top: 0; }
+
+  &__ref {
+    font-size: var(--fs-xl);
+    font-weight: 700;
+    font-family: var(--font-mono);
+  }
+}

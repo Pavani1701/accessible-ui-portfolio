@@ -1,0 +1,14 @@
+// Prairie Services Design System — entry point
+// Compiled with Dart Sass: npm run build:css
+
+@use "root";
+@use "base";
+@use "layout";
+
+@use "components/button";
+@use "components/alert";
+@use "components/accordion";
+@use "components/tabs";
+@use "components/modal";
+@use "components/table";
+@use "components/form";

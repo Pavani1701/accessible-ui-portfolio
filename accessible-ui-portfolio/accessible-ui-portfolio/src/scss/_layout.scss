@@ -1,0 +1,241 @@
+@use "mixins" as m;
+
+.container {
+  width: 100%;
+  max-width: 72rem;
+  margin-inline: auto;
+  padding-inline: m.space(4);
+
+  @include m.mq(md) {
+    padding-inline: m.space(6);
+  }
+}
+
+// Skip link: first focusable element on every page (WCAG 2.4.1).
+.skip-link {
+  position: absolute;
+  top: m.space(2);
+  left: m.space(2);
+  z-index: 100;
+  padding: m.space(3) m.space(4);
+  background: var(--color-focus);
+  color: #1b1b1b;
+  font-weight: 700;
+  transform: translateY(-200%);
+
+  &:focus {
+    transform: none;
+  }
+  &:visited { color: #1b1b1b; }
+}
+
+.demo-banner {
+  background: var(--color-warning-bg);
+  color: var(--color-text);
+  font-size: var(--fs-xs);
+  padding-block: m.space(2);
+  border-bottom: 1px solid var(--color-border);
+
+  p { margin: 0; max-width: none; }
+}
+
+// Header ---------------------------------------------------------------------
+.site-header {
+  background: var(--color-header-bg);
+  color: var(--color-header-text);
+
+  &__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: m.space(2);
+    padding-block: m.space(3);
+  }
+
+  &__brand {
+    display: inline-flex;
+    align-items: center;
+    gap: m.space(2);
+    color: inherit;
+    font-weight: 700;
+    font-size: var(--fs-lg);
+    text-decoration: none;
+
+    &:visited { color: inherit; }
+    &:hover { text-decoration: underline; }
+  }
+}
+
+.nav-toggle {
+  @include m.touch-target;
+  display: inline-flex;
+  align-items: center;
+  gap: m.space(2);
+  padding: m.space(2) m.space(3);
+  border: 2px solid currentColor;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-header-text);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+
+  // The toggle only exists when JS is running.
+  html:not(.js) & { display: none; }
+
+  @include m.mq(md) { display: none; }
+}
+
+.site-nav {
+  flex-basis: 100%;
+
+  html.js &:not(.is-open) {
+    display: none;
+  }
+
+  @include m.mq(md) {
+    flex-basis: auto;
+
+    html.js &:not(.is-open) {
+      display: block;
+    }
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: m.space(1);
+    max-width: none;
+
+    @include m.mq(md) {
+      flex-direction: row;
+      gap: m.space(2);
+    }
+  }
+
+  a {
+    display: block;
+    padding: m.space(2) m.space(3);
+    color: var(--color-header-text);
+    text-decoration: none;
+    border-bottom: 4px solid transparent;
+
+    &:visited { color: var(--color-header-text); }
+    &:hover { text-decoration: underline; }
+
+    // State is conveyed by aria-current AND a visual indicator, not color alone.
+    &[aria-current="page"] {
+      border-bottom-color: var(--color-focus);
+      font-weight: 700;
+    }
+  }
+}
+
+// Page sections --------------------------------------------------------------
+main {
+  display: block;
+  padding-block: m.space(6) m.space(8);
+
+  &:focus { outline: none; }
+}
+
+.lead {
+  font-size: var(--fs-lg);
+  color: var(--color-text-muted);
+}
+
+.section + .section {
+  margin-top: m.space(7);
+  padding-top: m.space(6);
+  border-top: 1px solid var(--color-border);
+}
+
+.section > h2:first-child { margin-top: 0; }
+
+.card-grid {
+  display: grid;
+  gap: m.space(5);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  padding: 0;
+  list-style: none;
+  max-width: none;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: m.space(5);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-top: 6px solid var(--color-primary);
+  border-radius: var(--radius-md);
+
+  h3 { margin-bottom: m.space(2); }
+  p:last-child { margin-bottom: 0; }
+
+  // Whole card is clickable via the heading link's pseudo-element, while
+  // screen readers hear just one concise link (the heading text).
+  &__link {
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+    }
+    &:focus-visible {
+      outline: none;
+      box-shadow: none;
+    }
+  }
+
+  &:has(.card__link:focus-visible) {
+    @include m.focus-ring;
+  }
+}
+
+.demo-block {
+  padding: m.space(5);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-md);
+  margin-bottom: m.space(5);
+
+  > :last-child { margin-bottom: 0; }
+}
+
+.cluster {
+  display: flex;
+  flex-wrap: wrap;
+  gap: m.space(3);
+  align-items: center;
+}
+
+.tech-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: m.space(2);
+  padding: 0;
+  list-style: none;
+  max-width: none;
+
+  li {
+    padding: m.space(1) m.space(3);
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    font-size: var(--fs-xs);
+    font-weight: 600;
+  }
+}
+
+// Footer ---------------------------------------------------------------------
+.site-footer {
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  padding-block: m.space(6);
+  font-size: var(--fs-xs);
+
+  p { margin-bottom: m.space(2); }
+}

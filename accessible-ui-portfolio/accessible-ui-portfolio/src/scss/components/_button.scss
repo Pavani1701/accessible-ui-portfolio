@@ -1,0 +1,74 @@
+@use "../mixins" as m;
+
+.btn {
+  @include m.touch-target;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: m.space(2);
+  padding: m.space(2) m.space(5);
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-sm);
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  font: inherit;
+  font-weight: 700;
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 120ms ease, border-color 120ms ease;
+
+  &:visited { color: var(--color-on-primary); }
+
+  &:hover {
+    background: var(--color-primary-hover);
+    border-color: var(--color-primary-hover);
+  }
+
+  &--secondary {
+    background: transparent;
+    color: var(--color-primary);
+
+    &:visited { color: var(--color-primary); }
+
+    &:hover {
+      background: var(--color-primary-light);
+      border-color: var(--color-primary);
+    }
+  }
+
+  &--danger {
+    background: var(--color-error);
+    border-color: var(--color-error);
+    color: var(--color-bg);
+
+    &:hover {
+      background: var(--color-text);
+      border-color: var(--color-text);
+    }
+  }
+
+  &--link {
+    min-height: auto;
+    min-width: auto;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--color-link);
+    font-weight: 400;
+    text-decoration: underline;
+
+    &:hover { background: none; text-decoration-thickness: 3px; }
+  }
+
+  // Use aria-disabled (still focusable, still announced) instead of
+  // [disabled] so users can discover why an action is unavailable.
+  &[aria-disabled="true"] {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  @media (forced-colors: active) {
+    border-color: ButtonText;
+  }
+}

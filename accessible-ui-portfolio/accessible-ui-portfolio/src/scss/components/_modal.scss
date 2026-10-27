@@ -1,0 +1,33 @@
+@use "../mixins" as m;
+
+// Built on the native <dialog> element: showModal() gives us a real focus
+// trap, makes the rest of the page inert and closes on Escape.
+.modal {
+  width: min(32rem, calc(100% - 2rem));
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-bg);
+  color: var(--color-text);
+  box-shadow: 0 1rem 3rem rgb(0 0 0 / 0.35);
+
+  &::backdrop {
+    background: rgb(0 0 0 / 0.6);
+  }
+
+  &__inner {
+    padding: m.space(5);
+  }
+
+  &__title {
+    margin-top: 0;
+    font-size: var(--fs-xl);
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: m.space(3);
+    margin-top: m.space(5);
+  }
+}

@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Components – Prairie State Services (Demo)</title>
+  <meta name="description" content="Accessible UI component library: buttons, alerts, accordion, tabs, modal dialog and sortable data table.">
+  <script>document.documentElement.classList.add('js');</script>
+  <link rel="stylesheet" href="css/main.css">
+  <script type="module" src="js/main.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <div class="demo-banner">
+    <div class="container">
+      <p><strong>Portfolio demo.</strong> “Prairie State Services” is a fictional agency. No real data is collected.</p>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="site-header__brand" href="index.html">
+        <svg aria-hidden="true" focusable="false" width="28" height="28" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2 2 7v2h20V7L12 2Zm-8 9v7h3v-7H4Zm6.5 0v7h3v-7h-3ZM17 11v7h3v-7h-3ZM2 20v2h20v-2H2Z"/></svg>
+        Prairie State Services
+      </a>
+      <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="site-nav">Menu</button>
+      <nav class="site-nav" id="site-nav" aria-label="Main">
+        <ul>
+          <li><a href="index.html">Overview</a></li>
+          <li><a href="components.html" aria-current="page">Components</a></li>
+          <li><a href="apply.html">Application form</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <div class="container">
+      <h1>Component library</h1>
+      <p class="lead">Reusable, themeable components. Every interactive pattern follows the WAI-ARIA Authoring Practices keyboard model and has been checked with axe-core and a screen reader.</p>
+
+      <!-- Buttons ---------------------------------------------------------- -->
+      <section class="section" aria-labelledby="buttons-heading">
+        <h2 id="buttons-heading">Buttons and status messages</h2>
+        <p>Buttons have 44px minimum targets. The “Save draft” action reports its result in a polite <code>role="status"</code> live region, so screen reader users hear the confirmation without losing focus.</p>
+        <div class="demo-block">
+          <div class="cluster">
+            <button class="btn" type="button" id="save-draft">Save draft</button>
+            <button class="btn btn--secondary" type="button" data-modal-open="withdraw-dialog">Withdraw application</button>
+            <button class="btn btn--secondary" type="button" aria-disabled="true" aria-describedby="upload-reason">Upload documents</button>
+          </div>
+          <p class="hint" id="upload-reason">Uploads open after your application is reviewed.</p>
+          <p class="status-message" id="demo-status" role="status"></p>
+        </div>
+      </section>
+
+      <!-- Modal ------------------------------------------------------------ -->
+      <dialog class="modal" id="withdraw-dialog" aria-labelledby="withdraw-title" aria-describedby="withdraw-desc">
+        <div class="modal__inner">
+          <h2 class="modal__title" id="withdraw-title">Withdraw your application?</h2>
+          <p id="withdraw-desc">You will need to start a new application if you change your mind. Any documents you uploaded will be deleted.</p>
+          <div class="modal__actions">
+            <button class="btn btn--secondary" type="button" data-modal-action="cancel" autofocus>Keep my application</button>
+            <button class="btn btn--danger" type="button" data-modal-action="confirm">Withdraw application</button>
+          </div>
+        </div>
+      </dialog>
+
+      <!-- Alerts ----------------------------------------------------------- -->
+      <section class="section" aria-labelledby="alerts-heading">
+        <h2 id="alerts-heading">Alerts</h2>
+        <p>Variants are generated from a Sass map. Icons are decorative (<code>aria-hidden</code>), and the meaning is carried by the heading text.</p>
+
+        <div class="alert alert--info">
+          <svg class="alert__icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm1 15h-2v-6h2v6Zm0-8h-2V7h2v2Z"/></svg>
+          <div class="alert__body">
+            <h3 class="alert__title">Office hours are changing</h3>
+            <p>From November 1, phone lines are open 8 a.m. to 6 p.m., Monday through Friday.</p>
+          </div>
+        </div>
+        <div class="alert alert--success">
+          <svg class="alert__icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm-2 15-5-5 1.4-1.4 3.6 3.6 7.6-7.6L19 8l-9 9Z"/></svg>
+          <div class="alert__body">
+            <h3 class="alert__title">Documents received</h3>
+            <p>We received 3 documents on October 20. No further action is needed.</p>
+          </div>
+        </div>
+        <div class="alert alert--warning">
+          <svg class="alert__icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path fill="currentColor" d="M1 21h22L12 2 1 21Zm12-3h-2v-2h2v2Zm0-4h-2v-4h2v4Z"/></svg>
+          <div class="alert__body">
+            <h3 class="alert__title">Renewal due soon</h3>
+            <p>Your benefits renewal is due by <strong>December 15</strong>.</p>
+          </div>
+        </div>
+        <div class="alert alert--error">
+          <svg class="alert__icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm1 15h-2v-2h2v2Zm0-4h-2V7h2v6Z"/></svg>
+          <div class="alert__body">
+            <h3 class="alert__title">Payment could not be processed</h3>
+            <p>Check your bank details and <a href="apply.html">update your account</a>.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tabs ------------------------------------------------------------- -->
+      <section class="section" aria-labelledby="tabs-heading">
+        <h2 id="tabs-heading">Tabs</h2>
+        <p>Automatic activation with roving tabindex. Use <kbd>Tab</kbd> to reach the tab list, then the arrow keys, <kbd>Home</kbd> and <kbd>End</kbd> to move between tabs.</p>
+
+        <div class="tabs" data-tabs>
+          <div class="tabs__list" role="tablist" aria-label="Program details">
+            <button class="tabs__tab" type="button" role="tab" id="tab-eligibility" aria-controls="panel-eligibility" aria-selected="true">Eligibility</button>
+            <button class="tabs__tab" type="button" role="tab" id="tab-documents" aria-controls="panel-documents" aria-selected="false">Documents</button>
+            <button class="tabs__tab" type="button" role="tab" id="tab-timeline" aria-controls="panel-timeline" aria-selected="false">Timeline</button>
+          </div>
+          <div class="tabs__panel" role="tabpanel" id="panel-eligibility" aria-labelledby="tab-eligibility" tabindex="0">
+            <p>You may qualify if you live in the state, have a child under 13 and are working, in school or in job training.</p>
+          </div>
+          <div class="tabs__panel" role="tabpanel" id="panel-documents" aria-labelledby="tab-documents" tabindex="0" hidden>
+            <ul>
+              <li>Proof of identity, such as a driver's license</li>
+              <li>Proof of income from the last 30 days</li>
+              <li>Your child care provider's details</li>
+            </ul>
+          </div>
+          <div class="tabs__panel" role="tabpanel" id="panel-timeline" aria-labelledby="tab-timeline" tabindex="0" hidden>
+            <p>Most applications receive a decision within 30 days. We'll email you if we need more information.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Accordion -------------------------------------------------------- -->
+      <section class="section" aria-labelledby="faq-heading">
+        <h2 id="faq-heading">Accordion</h2>
+        <p>Headings wrap real buttons, so the structure is navigable by heading and each section's state is announced as expanded or collapsed.</p>
+        <div class="accordion" data-accordion>
+          <h3 class="accordion__heading">
+            <button class="accordion__trigger" id="faq-1" type="button" aria-expanded="false" aria-controls="faq-panel-1">How long does an application take?</button>
+          </h3>
+          <div class="accordion__panel" id="faq-panel-1" role="region" aria-labelledby="faq-1">
+            <p>About 15 minutes. You can save a draft and come back later.</p>
+          </div>
+          <h3 class="accordion__heading">
+            <button class="accordion__trigger" id="faq-2" type="button" aria-expanded="false" aria-controls="faq-panel-2">Can someone apply on my behalf?</button>
+          </h3>
+          <div class="accordion__panel" id="faq-panel-2" role="region" aria-labelledby="faq-2">
+            <p>Yes. An authorized representative can apply for you if you sign a consent form.</p>
+          </div>
+          <h3 class="accordion__heading">
+            <button class="accordion__trigger" id="faq-3" type="button" aria-expanded="false" aria-controls="faq-panel-3">How is my information protected?</button>
+          </h3>
+          <div class="accordion__panel" id="faq-panel-3" role="region" aria-labelledby="faq-3">
+            <p>Your information is encrypted in transit and at rest, and is only used to decide your eligibility.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Data table ------------------------------------------------------- -->
+      <section class="section" aria-labelledby="table-heading">
+        <h2 id="table-heading">Sortable, filterable data table</h2>
+        <p>Sort buttons live inside the column headers, <code>aria-sort</code> is set only on the sorted column, and results are announced through a live region instead of moving focus.</p>
+
+        <div class="table-toolbar">
+          <div class="field">
+            <label class="label" for="case-filter">Filter cases</label>
+            <span class="hint" id="case-filter-hint">Search by case ID, name, program or status</span>
+            <input class="input input--w10" type="search" id="case-filter" aria-describedby="case-filter-hint" autocomplete="off">
+          </div>
+          <p class="visually-hidden" id="case-status" role="status"></p>
+        </div>
+
+        <div class="table-wrapper" role="region" aria-labelledby="cases-caption" tabindex="0">
+          <table class="table" data-sortable-table data-status-id="case-status" data-filter-id="case-filter">
+            <caption id="cases-caption">Recent cases (8)</caption>
+            <thead>
+              <tr>
+                <th scope="col"><button class="sort-btn" type="button">Case ID<span class="sort-btn__icon" aria-hidden="true"></span></button></th>
+                <th scope="col"><button class="sort-btn" type="button">Applicant<span class="sort-btn__icon" aria-hidden="true"></span></button></th>
+                <th scope="col"><button class="sort-btn" type="button">Program<span class="sort-btn__icon" aria-hidden="true"></span></button></th>
+                <th scope="col"><button class="sort-btn" type="button">Submitted<span class="sort-btn__icon" aria-hidden="true"></span></button></th>
+                <th scope="col"><button class="sort-btn" type="button">Status<span class="sort-btn__icon" aria-hidden="true"></span></button></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>PSS-104233</td><td>Alvarez, Maria</td><td>Child Care Assistance</td><td data-sort-value="2026-10-02">Oct 2, 2026</td><td><span class="badge badge--approved">Approved</span></td></tr>
+              <tr><td>PSS-104871</td><td>Nguyen, David</td><td>Food Assistance</td><td data-sort-value="2026-10-14">Oct 14, 2026</td><td><span class="badge badge--pending">Pending</span></td></tr>
+              <tr><td>PSS-103910</td><td>Johnson, Aisha</td><td>Medical Assistance</td><td data-sort-value="2026-09-21">Sep 21, 2026</td><td><span class="badge badge--review">In review</span></td></tr>
+              <tr><td>PSS-105002</td><td>Peterson, Erik</td><td>Child Care Assistance</td><td data-sort-value="2026-10-19">Oct 19, 2026</td><td><span class="badge badge--pending">Pending</span></td></tr>
+              <tr><td>PSS-102764</td><td>Okafor, Grace</td><td>Energy Assistance</td><td data-sort-value="2026-08-30">Aug 30, 2026</td><td><span class="badge badge--denied">Denied</span></td></tr>
+              <tr><td>PSS-104590</td><td>Schmidt, Laura</td><td>Food Assistance</td><td data-sort-value="2026-10-08">Oct 8, 2026</td><td><span class="badge badge--approved">Approved</span></td></tr>
+              <tr><td>PSS-103355</td><td>Brown, Marcus</td><td>Medical Assistance</td><td data-sort-value="2026-09-11">Sep 11, 2026</td><td><span class="badge badge--approved">Approved</span></td></tr>
+              <tr><td>PSS-105118</td><td>Kim, Soo-jin</td><td>Energy Assistance</td><td data-sort-value="2026-10-23">Oct 23, 2026</td><td><span class="badge badge--review">In review</span></td></tr>
+              <tr class="table__empty" hidden><td colspan="5">No cases match your filter.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>Designed and built by Pavani Madhyannapu as a front-end and UI portfolio sample.</p>
+      <p><a href="https://github.com/YOUR-GITHUB-USERNAME/accessible-ui-portfolio">View source on GitHub</a></p>
+    </div>
+  </footer>
+</body>
+</html>

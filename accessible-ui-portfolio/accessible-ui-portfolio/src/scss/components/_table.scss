@@ -1,0 +1,101 @@
+@use "../mixins" as m;
+
+// Scrollable wrapper is focusable + labelled so keyboard users can scroll
+// horizontally on small screens (WCAG 2.1.1, 1.4.10 Reflow).
+.table-wrapper {
+  overflow-x: auto;
+  margin-bottom: m.space(4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-sm);
+
+  caption {
+    padding: m.space(3) m.space(4);
+    text-align: left;
+    font-weight: 700;
+    font-size: var(--fs-md);
+  }
+
+  th,
+  td {
+    padding: m.space(3) m.space(4);
+    text-align: left;
+    border-top: 1px solid var(--color-border);
+    white-space: nowrap;
+  }
+
+  thead th {
+    background: var(--color-surface);
+    vertical-align: bottom;
+  }
+
+  tbody tr:nth-child(even) td {
+    background: color-mix(in srgb, var(--color-surface) 50%, transparent);
+  }
+
+  tbody tr:hover td {
+    background: var(--color-primary-light);
+  }
+
+  &__empty td {
+    text-align: center;
+    font-style: italic;
+  }
+}
+
+.sort-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: m.space(2);
+  min-height: 32px;
+  padding: m.space(1) 0;
+  border: 0;
+  background: none;
+  color: var(--color-link);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: underline;
+
+  &__icon {
+    display: inline-block;
+    width: 0.75rem;
+    text-align: center;
+
+    &::before { content: "\2195"; } // up-down arrow (unsorted)
+  }
+
+  [aria-sort="ascending"] &__icon::before { content: "\2191"; }
+  [aria-sort="descending"] &__icon::before { content: "\2193"; }
+}
+
+.table-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: m.space(4);
+  margin-bottom: m.space(3);
+
+  .field { margin-bottom: 0; }
+}
+
+// Status badges always carry text, so meaning never depends on color alone.
+.badge {
+  display: inline-block;
+  padding: 0.1rem m.space(2);
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  font-size: var(--fs-xs);
+  font-weight: 700;
+
+  &--approved { color: var(--color-success); background: var(--color-success-bg); }
+  &--pending { color: var(--color-warning); background: var(--color-warning-bg); }
+  &--denied { color: var(--color-error); background: var(--color-error-bg); }
+  &--review { color: var(--color-info); background: var(--color-info-bg); }
+}

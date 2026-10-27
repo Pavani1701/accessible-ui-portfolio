@@ -1,0 +1,32 @@
+@use "tokens" as t;
+
+// Generate CSS custom properties from the Sass token maps so components can
+// switch themes at runtime without recompiling.
+:root {
+  color-scheme: light dark;
+
+  @each $name, $value in t.$light {
+    --color-#{$name}: #{$value};
+  }
+  @each $name, $value in t.$font-sizes {
+    --fs-#{$name}: #{$value};
+  }
+  @each $name, $value in t.$space {
+    --space-#{$name}: #{$value};
+  }
+  @each $name, $value in t.$radius {
+    --radius-#{$name}: #{$value};
+  }
+
+  --font-body: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "Cascadia Code", Consolas, monospace;
+  --measure: 70ch;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    @each $name, $value in t.$dark {
+      --color-#{$name}: #{$value};
+    }
+  }
+}

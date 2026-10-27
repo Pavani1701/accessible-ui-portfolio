@@ -1,0 +1,52 @@
+@use "sass:map";
+@use "tokens" as t;
+
+/// Spacing helper: space(4) -> 1rem
+@function space($key) {
+  @if not map.has-key(t.$space, $key) {
+    @error "Unknown spacing key `#{$key}`.";
+  }
+  @return map.get(t.$space, $key);
+}
+
+/// Mobile-first media query: @include mq(md) { ... }
+@mixin mq($bp) {
+  @if not map.has-key(t.$breakpoints, $bp) {
+    @error "Unknown breakpoint `#{$bp}`.";
+  }
+  @media (min-width: map.get(t.$breakpoints, $bp)) {
+    @content;
+  }
+}
+
+/// Two-tone focus indicator (yellow + dark ring). It stays visible on light,
+/// dark and brand-colored backgrounds (WCAG 2.4.7 and 2.4.11).
+@mixin focus-ring {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 0;
+  box-shadow: 0 0 0 6px var(--color-text);
+
+  @media (forced-colors: active) {
+    outline-color: Highlight;
+    box-shadow: none;
+  }
+}
+
+/// Hide visually, keep available to screen readers.
+@mixin visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/// Ensure pointer targets meet WCAG 2.5.8 (24px), with a 44px comfort target.
+@mixin touch-target($size: 44px) {
+  min-height: $size;
+  min-width: $size;
+}

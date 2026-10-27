@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Apply for Child Care Assistance – Prairie State Services (Demo)</title>
+  <meta name="description" content="Accessible multi-step application form demo with validation, error summary and focus management.">
+  <script>document.documentElement.classList.add('js');</script>
+  <link rel="stylesheet" href="css/main.css">
+  <script type="module" src="js/apply.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <div class="demo-banner">
+    <div class="container">
+      <p><strong>Portfolio demo.</strong> “Prairie State Services” is a fictional agency. Nothing you enter is sent anywhere.</p>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="site-header__brand" href="index.html">
+        <svg aria-hidden="true" focusable="false" width="28" height="28" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2 2 7v2h20V7L12 2Zm-8 9v7h3v-7H4Zm6.5 0v7h3v-7h-3ZM17 11v7h3v-7h-3ZM2 20v2h20v-2H2Z"/></svg>
+        Prairie State Services
+      </a>
+      <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="site-nav">Menu</button>
+      <nav class="site-nav" id="site-nav" aria-label="Main">
+        <ul>
+          <li><a href="index.html">Overview</a></li>
+          <li><a href="components.html">Components</a></li>
+          <li><a href="apply.html" aria-current="page">Application form</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <div class="container">
+      <h1>Apply for Child Care Assistance</h1>
+
+      <ol class="step-indicator" aria-label="Application progress">
+        <li aria-current="step"><span class="step-indicator__num" aria-hidden="true">1</span> About you<span class="step-indicator__status visually-hidden"></span></li>
+        <li><span class="step-indicator__num" aria-hidden="true">2</span> Contact details<span class="step-indicator__status visually-hidden"></span></li>
+        <li><span class="step-indicator__num" aria-hidden="true">3</span> Household<span class="step-indicator__status visually-hidden"></span></li>
+        <li><span class="step-indicator__num" aria-hidden="true">4</span> Review<span class="step-indicator__status visually-hidden"></span></li>
+      </ol>
+
+      <div class="error-summary" id="error-summary" tabindex="-1" aria-labelledby="error-summary-title" hidden>
+        <h2 class="error-summary__title" id="error-summary-title">There is a problem</h2>
+        <ul class="error-summary__list"></ul>
+      </div>
+
+      <form id="apply-form" action="#" method="post" novalidate>
+
+        <!-- Step 1 ------------------------------------------------------- -->
+        <div class="step" data-step="about">
+          <h2 tabindex="-1"><span class="caption">Step 1 of 4</span> <span data-title>About you</span></h2>
+
+          <div class="field">
+            <label class="label" for="first-name">First name</label>
+            <p class="error-message" id="first-name-error" hidden></p>
+            <input class="input" id="first-name" name="firstName" type="text" autocomplete="given-name" spellcheck="false"
+                   data-validate data-review-label="First name" data-required="Enter your first name">
+          </div>
+
+          <div class="field">
+            <label class="label" for="last-name">Last name</label>
+            <p class="error-message" id="last-name-error" hidden></p>
+            <input class="input" id="last-name" name="lastName" type="text" autocomplete="family-name" spellcheck="false"
+                   data-validate data-review-label="Last name" data-required="Enter your last name">
+          </div>
+
+          <div class="field">
+            <fieldset id="dob" aria-describedby="dob-hint"
+                      data-validate="date" data-review-label="Date of birth"
+                      data-required="Enter your date of birth"
+                      data-invalid="Date of birth must be a real date, for example 3 27 1990"
+                      data-future="Date of birth must be in the past">
+              <legend class="legend">What is your date of birth?</legend>
+              <span class="hint" id="dob-hint">For example, 3 27 1990</span>
+              <p class="error-message" id="dob-error" hidden></p>
+              <div class="date-input">
+                <div>
+                  <label class="label" for="dob-month">Month</label>
+                  <input class="input input--w2" id="dob-month" name="dobMonth" type="text" inputmode="numeric" maxlength="2" autocomplete="bday-month" data-part="month">
+                </div>
+                <div>
+                  <label class="label" for="dob-day">Day</label>
+                  <input class="input input--w2" id="dob-day" name="dobDay" type="text" inputmode="numeric" maxlength="2" autocomplete="bday-day" data-part="day">
+                </div>
+                <div>
+                  <label class="label" for="dob-year">Year</label>
+                  <input class="input input--w4" id="dob-year" name="dobYear" type="text" inputmode="numeric" maxlength="4" autocomplete="bday-year" data-part="year">
+                </div>
+              </div>
+            </fieldset>
+          </div>
+
+          <div class="form-actions">
+            <button class="btn" type="button" data-next>Continue</button>
+          </div>
+        </div>
+
+        <!-- Step 2 ------------------------------------------------------- -->
+        <div class="step" data-step="contact">
+          <h2 tabindex="-1"><span class="caption">Step 2 of 4</span> <span data-title>Contact details</span></h2>
+
+          <div class="field">
+            <label class="label" for="email">Email address</label>
+            <span class="hint" id="email-hint">We'll send your application reference number here</span>
+            <p class="error-message" id="email-error" hidden></p>
+            <input class="input" id="email" name="email" type="email" autocomplete="email" spellcheck="false" aria-describedby="email-hint"
+                   data-validate data-review-label="Email address"
+                   data-required="Enter your email address"
+                   data-pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
+                   data-pattern-message="Enter an email address in the correct format, like name@example.com">
+          </div>
+
+          <div class="field">
+            <label class="label" for="phone">Phone number (optional)</label>
+            <span class="hint" id="phone-hint">For example, 515 555 0123</span>
+            <p class="error-message" id="phone-error" hidden></p>
+            <input class="input input--w10" id="phone" name="phone" type="tel" autocomplete="tel" aria-describedby="phone-hint"
+                   data-validate data-review-label="Phone number"
+                   data-pattern="^\(?\d{3}\)?[\s.\-]?\d{3}[\s.\-]?\d{4}$"
+                   data-pattern-message="Enter a 10-digit phone number, like 515 555 0123">
+          </div>
+
+          <div class="field">
+            <fieldset id="contact-pref" data-validate="choice" data-review-label="Preferred contact method"
+                      data-required="Select how you would like us to contact you">
+              <legend class="legend">How should we contact you?</legend>
+              <p class="error-message" id="contact-pref-error" hidden></p>
+              <div class="choices">
+                <div class="choice">
+                  <input type="radio" id="contact-email" name="contactPref" value="email">
+                  <label for="contact-email">Email</label>
+                </div>
+                <div class="choice">
+                  <input type="radio" id="contact-phone" name="contactPref" value="phone">
+                  <label for="contact-phone">Phone call</label>
+                </div>
+                <div class="choice">
+                  <input type="radio" id="contact-mail" name="contactPref" value="mail">
+                  <label for="contact-mail">Postal mail</label>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+
+          <div class="field">
+            <label class="label" for="county">County of residence</label>
+            <p class="error-message" id="county-error" hidden></p>
+            <select class="select input--w10" id="county" name="county"
+                    data-validate data-review-label="County" data-required="Select your county">
+              <option value="">Select a county</option>
+              <option>Adams</option>
+              <option>Benton</option>
+              <option>Clay</option>
+              <option>Franklin</option>
+              <option>Jefferson</option>
+              <option>Lincoln</option>
+              <option>Madison</option>
+              <option>Washington</option>
+            </select>
+          </div>
+
+          <div class="form-actions">
+            <button class="btn" type="button" data-next>Continue</button>
+            <button class="btn btn--secondary" type="button" data-back>Back</button>
+          </div>
+        </div>
+
+        <!-- Step 3 ------------------------------------------------------- -->
+        <div class="step" data-step="household">
+          <h2 tabindex="-1"><span class="caption">Step 3 of 4</span> <span data-title>Household</span></h2>
+
+          <div class="field">
+            <label class="label" for="household-size">How many people live in your household?</label>
+            <span class="hint" id="household-size-hint">Include yourself and any children</span>
+            <p class="error-message" id="household-size-error" hidden></p>
+            <input class="input input--w2" id="household-size" name="householdSize" type="text" inputmode="numeric" maxlength="2" aria-describedby="household-size-hint"
+                   data-validate data-review-label="Household size"
+                   data-required="Enter the number of people in your household"
+                   data-min="1" data-max="15"
+                   data-range-message="Household size must be a whole number between 1 and 15">
+          </div>
+
+          <div class="field">
+            <fieldset id="has-child" data-validate="choice" data-review-label="Child under 13"
+                      data-required="Select yes if you have a child under 13">
+              <legend class="legend">Do you have a child under 13 who needs care?</legend>
+              <p class="error-message" id="has-child-error" hidden></p>
+              <div class="choices choices--inline">
+                <div class="choice">
+                  <input type="radio" id="has-child-yes" name="hasChild" value="yes">
+                  <label for="has-child-yes">Yes</label>
+                </div>
+                <div class="choice">
+                  <input type="radio" id="has-child-no" name="hasChild" value="no">
+                  <label for="has-child-no">No</label>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+
+          <div class="field">
+            <p class="error-message" id="consent-error" hidden></p>
+            <div class="choice">
+              <input type="checkbox" id="consent" name="consent" data-validate
+                     data-required="Confirm that the information you have given is accurate">
+              <label for="consent">I confirm that the information I have given is accurate to the best of my knowledge.</label>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button class="btn" type="button" data-next>Continue</button>
+            <button class="btn btn--secondary" type="button" data-back>Back</button>
+          </div>
+        </div>
+
+        <!-- Step 4 ------------------------------------------------------- -->
+        <div class="step" data-step="review">
+          <h2 tabindex="-1"><span class="caption">Step 4 of 4</span> <span data-title>Check your answers</span></h2>
+          <p>Review your answers before you submit. Use “Change” to correct anything.</p>
+          <dl class="summary-list" id="review-list"></dl>
+          <div class="form-actions">
+            <button class="btn" type="submit">Submit application</button>
+            <button class="btn btn--secondary" type="button" data-back>Back</button>
+          </div>
+        </div>
+      </form>
+
+      <div class="confirmation" id="confirmation" hidden>
+        <h2 tabindex="-1">Application submitted</h2>
+        <p>Your reference number is</p>
+        <p class="confirmation__ref" id="confirmation-ref"></p>
+        <p>We have sent a confirmation to <strong id="confirmation-email"></strong>. Most applications receive a decision within 30 days.</p>
+        <p><a href="apply.html">Start a new application</a></p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>Designed and built by Pavani Madhyannapu as a front-end and UI portfolio sample.</p>
+      <p><a href="https://github.com/YOUR-GITHUB-USERNAME/accessible-ui-portfolio">View source on GitHub</a></p>
+    </div>
+  </footer>
+</body>
+</html>

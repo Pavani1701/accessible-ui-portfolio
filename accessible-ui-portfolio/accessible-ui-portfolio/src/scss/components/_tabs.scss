@@ -1,0 +1,44 @@
+@use "../mixins" as m;
+
+.tabs {
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: m.space(1);
+    border-bottom: 2px solid var(--color-border);
+  }
+
+  &__tab {
+    @include m.touch-target;
+    padding: m.space(2) m.space(4);
+    margin-bottom: -2px;
+    border: 2px solid transparent;
+    border-bottom: 0;
+    border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+    background: var(--color-surface);
+    color: var(--color-text);
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+
+    &:hover { text-decoration: underline; }
+
+    &[aria-selected="true"] {
+      background: var(--color-bg);
+      border-color: var(--color-border);
+      border-top: 4px solid var(--color-primary);
+      // Covers the list's bottom border so the active tab "joins" its panel.
+      box-shadow: 0 2px 0 var(--color-bg);
+    }
+
+    &[aria-selected="true"]:focus-visible {
+      @include m.focus-ring;
+    }
+  }
+
+  &__panel {
+    padding: m.space(5) 0;
+
+    > :last-child { margin-bottom: 0; }
+  }
+}

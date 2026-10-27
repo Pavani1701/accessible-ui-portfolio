@@ -1,0 +1,85 @@
+@use "mixins" as m;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--fs-md);
+  line-height: 1.5;
+  color: var(--color-text);
+  background: var(--color-bg);
+}
+
+h1, h2, h3, h4 {
+  line-height: 1.2;
+  margin: 0 0 m.space(4);
+}
+
+h1 { font-size: clamp(var(--fs-2xl), 4vw + 1rem, var(--fs-3xl)); }
+h2 { font-size: var(--fs-xl); margin-top: m.space(6); }
+h3 { font-size: var(--fs-lg); }
+
+p, ul, ol, dl {
+  margin: 0 0 m.space(4);
+  max-width: var(--measure);
+}
+
+a {
+  color: var(--color-link);
+  text-decoration-thickness: max(1px, 0.0625em);
+  text-underline-offset: 0.15em;
+
+  &:visited { color: var(--color-link-visited); }
+  &:hover { text-decoration-thickness: 3px; }
+}
+
+// One consistent, high-visibility focus style for every interactive element.
+:focus-visible {
+  @include m.focus-ring;
+}
+
+// Headings/containers that receive programmatic focus (tabindex="-1")
+// should not show a ring they can never get via the keyboard.
+[tabindex="-1"]:focus:not(:focus-visible) {
+  outline: none;
+  box-shadow: none;
+}
+
+img, svg {
+  max-width: 100%;
+  height: auto;
+}
+
+code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  background: var(--color-surface);
+  padding: 0.1em 0.3em;
+  border-radius: var(--radius-sm);
+}
+
+.visually-hidden {
+  @include m.visually-hidden;
+}
+
+// Respect users who ask the OS for less motion (WCAG 2.3.3).
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

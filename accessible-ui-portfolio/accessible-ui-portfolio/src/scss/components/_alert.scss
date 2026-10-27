@@ -1,0 +1,56 @@
+@use "sass:map";
+@use "../mixins" as m;
+
+$alert-variants: (
+  info: (border: --color-info, bg: --color-info-bg),
+  success: (border: --color-success, bg: --color-success-bg),
+  warning: (border: --color-warning, bg: --color-warning-bg),
+  error: (border: --color-error, bg: --color-error-bg),
+);
+
+.alert {
+  display: flex;
+  gap: m.space(3);
+  padding: m.space(4) m.space(5);
+  margin-bottom: m.space(4);
+  border-left: 8px solid var(--color-border);
+  background: var(--color-surface);
+  max-width: var(--measure);
+
+  &__icon {
+    flex: none;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-top: 0.1rem;
+  }
+
+  &__title {
+    font-size: var(--fs-md);
+    margin: 0 0 m.space(1);
+  }
+
+  &__body > :last-child { margin-bottom: 0; }
+
+  // Generate one modifier per variant from the map above.
+  @each $name, $cfg in $alert-variants {
+    &--#{$name} {
+      border-left-color: var(#{map.get($cfg, border)});
+      background: var(#{map.get($cfg, bg)});
+
+      .alert__icon { color: var(#{map.get($cfg, border)}); }
+    }
+  }
+
+  @media (forced-colors: active) {
+    border: 1px solid CanvasText;
+    border-left-width: 8px;
+  }
+}
+
+// Live status message (role="status") used for non-modal feedback.
+.status-message {
+  min-height: 1.5em;
+  margin-top: m.space(3);
+  font-weight: 600;
+  color: var(--color-success);
+}
